@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { fetchFoodByString } from "../api/FoodApi";
+import { fetchFoodByString, fetchFoodAutocompleteByString } from "../api/FoodApi";
 const Search = () => {
   const [str, setStr] = useState("");
   const [foodArr, setfoodArr] = useState([]);
 
   async function fetchfood() {
     const data = await fetchFoodByString(str);
+    setfoodArr(data);
+  }
+  async function fetchfoodAutocomplete() {
+    const data = await fetchFoodAutocompleteByString(str);
     setfoodArr(data);
   }
 
@@ -19,6 +23,9 @@ const Search = () => {
   useEffect(()=>{
     if(str==="") {
         setfoodArr([]);
+    }
+    else{
+      fetchfoodAutocomplete();
     }
   },[str])
 
@@ -46,7 +53,7 @@ const Search = () => {
             <CiSearch />
           </button>
         </div>
-        <div className="w-[27rem] border border-slate-300 bg-gray-100 rounded-lg flex justify-center items-center flex-col">
+        {foodArr.length>0 && <div className="w-[27rem] border border-slate-300 bg-gray-100 rounded-lg flex justify-center items-center flex-col">
           <ul className="flex justify-center items-center w-full flex-col divide-y-2">
             {str &&
               foodArr.map((food, ind) => {
@@ -57,7 +64,7 @@ const Search = () => {
                   >
                     <div className="flex justify-center items-center">
                       <img
-                        className="w-14 rounded-lg"
+                        className="w-14 rounded-lg h-10 object-cover"
                         src={food.photo}
                         alt=""
                         srcset=""
@@ -76,7 +83,7 @@ const Search = () => {
                 );
               })}
           </ul>
-        </div>
+        </div>}
       </div>
     </>
   );

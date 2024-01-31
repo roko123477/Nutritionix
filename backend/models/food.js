@@ -12,7 +12,11 @@ const FoodSchema=new mongoose.Schema({
     calories:{
         type:'Number',
         required: true
+    },
+    occured:{
+        type:'Number',
+        default:0
     }
 });
-
+//FoodSchema.index({food_name:1});
 module.exports=mongoose.model('Food',FoodSchema);
