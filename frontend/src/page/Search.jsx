@@ -33,7 +33,7 @@ const Search = () => {
     <>
       <div className="flex justify-center items-center flex-col h-screen">
         <h1 className="text-black text-3xl font-bold m-4">
-          Nutrion<span className="text-green-700">ix</span>
+          Nutrition<span className="text-green-700">ix</span>
         </h1>
         <div className="flex justify-center items-center">
           <input
